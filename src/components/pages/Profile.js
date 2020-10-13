@@ -37,7 +37,7 @@ export default function Profile() {
   const classes = useStyles();
   return (
     <div>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <Typography variant="h3">My Profile</Typography>
         <br />
         <Typography variant="h4">Hello {decodedToken.fullname}</Typography>
@@ -45,7 +45,7 @@ export default function Profile() {
           Your email is: {decodedToken.email}
         </Typography>
         <Typography variant="h6">
-          I'd assume you are a {genderCheck}, right?
+          I'd assume you are a {genderCheck} and <br/> live in {decodedToken.address}, right?
         </Typography>
         <form
           onSubmit={(event) => {
@@ -54,7 +54,6 @@ export default function Profile() {
         >
           <Button
             type="submit"
-            fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
