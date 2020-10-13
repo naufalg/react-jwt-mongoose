@@ -23,6 +23,9 @@ export default function Profile() {
   const decodedToken = jwtDecode(userToken);
   console.log("decodedToken", decodedToken);
 
+//   gender
+ const genderCheck =  decodedToken.gender === "M" ? "Male" : "Female"
+
   //   logout
   const logoutFunction = (event, history) => {
     event.preventDefault();
@@ -40,6 +43,9 @@ export default function Profile() {
         <Typography variant="h4">Hello {decodedToken.fullname}</Typography>
         <Typography variant="h6">
           Your email is: {decodedToken.email}
+        </Typography>
+        <Typography variant="h6">
+          I'd assume you are a {genderCheck}, right?
         </Typography>
         <form
           onSubmit={(event) => {
