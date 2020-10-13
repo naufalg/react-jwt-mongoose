@@ -1,4 +1,10 @@
-import { REGISTER, LOGIN } from "../actions/users.action";
+import {
+  REGISTER,
+  LOGIN,
+  GET_DATA_REQUEST,
+  GET_DATA_SUCCESS,
+  GET_DATA_FAILED,
+} from "../actions/users.action";
 
 const jwtToken = localStorage.getItem("token");
 
@@ -6,11 +12,15 @@ const initialState = jwtToken
   ? {
       isLoggedIn: true,
       data: [],
+      isLoading: false,
+      error: null,
     }
   : {
       isLoggedIn: false,
       data: [],
       registerData: [],
+      isLoading: false,
+      error: null,
     };
 
 const userReducer = (state = initialState, action) => {
@@ -19,15 +29,31 @@ const userReducer = (state = initialState, action) => {
       return {
         registerData: action.payload,
       };
-    // case LOGIN:
-    //   return {
-    //     isLoggedIn: true,
-    //   };
-    default:
+    case LOGIN:
       return {
-        state,
+        data: action.payload,
+        isLoggedIn: true,
       };
+    case GET_DATA_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: action.result,
+      };
+    case GET_DATA_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+    default:
+      return state;
   }
 };
 
-export default userReducer
+export default userReducer;
